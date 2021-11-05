@@ -2,6 +2,8 @@ package com.che300.example.nullpoint;
 
 import lombok.Data;
 
+import java.util.Optional;
+
 /**
  * @author liujialiang
  */
@@ -11,10 +13,10 @@ public class TestOptional {
 
     public static void main(String[] args) {
         UserInfo userInfo = new UserInfo();
-        String zipCode = userInfo.getAddress().getCity().getZipCode().getZipCode();
-
-        System.out.println(zipCode);
-
+        //错误示例
+        String result = userInfo.getAddress().getCity().getZipCode().getZipCode();
+        
+//        第一种方法
         if (userInfo != null) {
             Address address = userInfo.getAddress();
             if (address != null) {
@@ -27,5 +29,16 @@ public class TestOptional {
                 }
             }
         }
+        
+        //第二种方法
+
+        String s = Optional.ofNullable(userInfo)
+                .map(UserInfo::getAddress)
+                .map(Address::getCity)
+                .map(City::getZipCode)
+                .map(ZipCode::getZipCode)
+                .map(String::trim)
+                .orElse(null);
+        System.out.println(s);
     }
 }
