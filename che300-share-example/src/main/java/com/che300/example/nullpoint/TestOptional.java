@@ -13,7 +13,7 @@ public class TestOptional {
 
     public static void main(String[] args) {
         UserInfo userInfo = new UserInfo();
-
+        start(userInfo);
     }
 
     public static void start(UserInfo userInfo){
