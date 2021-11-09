@@ -13,10 +13,5 @@ public class QuestionString {
         String s2 = "abc";
         String s3 = s1 + "c";
         System.out.println(s2 == s3);
-
-        String s4 = "ab";
-        String s5 = "abc";
-        String s6 = s4 + "c";
-        System.out.println(s5 == s6);
     }
 }
