@@ -1,4 +1,3 @@
 rootProject.name = 'study'
 include 'che300-share-example'
 include 'che300-study-design'
-

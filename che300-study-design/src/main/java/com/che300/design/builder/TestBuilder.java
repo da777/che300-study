@@ -1,4 +1,4 @@
-package com.che300.design.build;
+package com.che300.design.builder;
 
 public class TestBuilder {
     public static void main(String[] args) {

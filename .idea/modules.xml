@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/che300-share-springboot/che300-share-springboot.iml" filepath="$PROJECT_DIR$/che300-share-springboot/che300-share-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/che300-study-design.iml" filepath="$PROJECT_DIR$/.idea/modules/che300-study-design.iml" />
     </modules>
   </component>
 </project>
