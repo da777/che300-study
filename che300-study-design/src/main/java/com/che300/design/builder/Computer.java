@@ -1,11 +1,16 @@
-package com.che300.design.build;
+package com.che300.design.builder;
 
 public class Computer {
-    private final String cpu;//必须
-    private final String ram;//必须
-    private final int usbCount;//可选
-    private final String keyboard;//可选
-    private final String display;//可选
+    //必须
+    private final String cpu;
+    //必须
+    private final String ram;
+    //可选
+    private final int usbCount;
+    //可选
+    private final String keyboard;
+    //可选
+    private final String display;
 
     private Computer(Builder builder) {
         this.cpu = builder.cpu;
