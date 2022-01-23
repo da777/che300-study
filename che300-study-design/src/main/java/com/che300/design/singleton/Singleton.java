@@ -11,7 +11,10 @@ public class Singleton {
 
     private Singleton() {
     }
-    // 双重校验锁
+
+    /**
+     * 双重校验锁
+     */
     public static Singleton getInstance() {
         if (instance == null) {
             synchronized (Singleton.class) {

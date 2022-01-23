@@ -1,4 +1,4 @@
-package com.che300.example.threadpool;
+package com.che300.example.thread;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,27 +20,19 @@ public class TestThread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            cachedThreadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println(index);
-                }
-            });
+            cachedThreadPool.execute(() -> System.out.println(index));
         }
 
 
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
         for (int i = 0; i < 10; i++) {
             final int index = i;
-            fixedThreadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        System.out.println(index);
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            fixedThreadPool.execute(() -> {
+                try {
+                    System.out.println(index);
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             });
         }
@@ -48,12 +40,7 @@ public class TestThread {
 
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 10; i++) {
-            scheduledThreadPool.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    System.out.println("delay 3 seconds");
-                }
-            }, 3, TimeUnit.SECONDS);
+            scheduledThreadPool.schedule(() -> System.out.println("delay 3 seconds"), 3, TimeUnit.SECONDS);
         }
 
 
