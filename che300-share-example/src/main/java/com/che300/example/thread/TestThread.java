@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 public class TestThread {
     public static void main(String[] args) {
         //todo 线程池模型图
-
         ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             final int index = i;
@@ -22,7 +21,6 @@ public class TestThread {
             }
             cachedThreadPool.execute(() -> System.out.println(index));
         }
-
 
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
         for (int i = 0; i < 10; i++) {
@@ -47,16 +45,12 @@ public class TestThread {
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         for (int i = 0; i < 10; i++) {
             final int index = i;
-            singleThreadExecutor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    /*                  System.out.println(index);*/
-                    try {
-                        System.out.println(index);
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            singleThreadExecutor.execute(() -> {
+                try {
+                    System.out.println(index);
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             });
         }
