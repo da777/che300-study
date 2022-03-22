@@ -8,22 +8,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class TreadPool {
     public static void main(String[] args) {
-        ExecutorService service = new ThreadPoolExecutor(20, 20, 0L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(), new NameThreadFactory());
+        ExecutorService service = new ThreadPoolExecutor(20,
+                20,
+                0L,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
+                new NameThreadFactory(),new ThreadPoolExecutor.CallerRunsPolicy());
         for (int i = 0; i < 10; i++) {
             service.execute(() -> {
                 System.out.println(Thread.currentThread().getName());
             });
         }
+        service.shutdown();
     }
 
-
     static class NameThreadFactory implements ThreadFactory {
-
         AtomicInteger threadNum = new AtomicInteger();
-
-        public NameThreadFactory() {
-        }
-
+        public NameThreadFactory() {}
         @Override
         public Thread newThread(Runnable r) {
             Thread thread = new Thread(r);
