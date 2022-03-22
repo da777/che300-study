@@ -7,51 +7,39 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author jlliu
  */
-public class PCLock {
-
-
+public class PCReentrantLock {
     public static void main(String[] args) {
-        TestLock testLock = new TestLock();
-
+        TestReentrantLock testLock = new TestReentrantLock();
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                testLock.decrement();
+                testLock.consumer();
             }
         }, "A").start();
 
         new Thread(() -> {
             for (int i = 0; i < 10; i++) {
-                testLock.increment();
+                testLock.product();
             }
         }, "B").start();
-
-        new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                testLock.decrement();
-            }
-        }, "C").start();
-
-        new Thread(() -> {
-            for (int i = 0; i < 10; i++) {
-                testLock.increment();
-            }
-        }, "D").start();
     }
 }
 
-class TestLock {
+class TestReentrantLock {
     private int number = 0;
     Lock lock = new ReentrantLock();
     Condition condition = lock.newCondition();
 
-    public void increment() {
+    /**
+     * 生产者
+     */
+    public void product() {
         lock.lock();
         try {
             while (number != 0) {
                 condition.await();
             }
             number++;
-            System.out.println(Thread.currentThread().getName() + "=>" + number);
+            System.out.println("线程:" + Thread.currentThread().getName() + " 生产了:" + number);
             condition.signalAll();
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,15 +47,17 @@ class TestLock {
             lock.unlock();
         }
     }
-
-    public void decrement() {
+    /**
+     * 消费者
+     */
+    public void consumer() {
         lock.lock();
         try {
             while (number == 0) {
                 condition.await();
             }
             number--;
-            System.out.println(Thread.currentThread().getName() + "=>" + number);
+            System.out.println("线程:" + Thread.currentThread().getName() + " 消费了:" + number);
             condition.signalAll();
         } catch (Exception e) {
             e.printStackTrace();
